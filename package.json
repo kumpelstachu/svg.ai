@@ -2,11 +2,11 @@
   "name": "svg.ai",
   "version": "1.0.50",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch index.ts"
   },
   "dependencies": {
-    "elysia": "latest"
+    "itty-router": "^5.0.17",
+    "openai": "^4.49.1"
   },
   "devDependencies": {
     "bun-types": "latest"
