@@ -99,5 +99,5 @@ async function generateSVG(filename: string, fast = false): Promise<string | und
 	})
 
 	const content = response.choices[0].message.tool_calls?.[0].function.arguments
-	return JSON.parse(content || '{}').content?.replace(/^.*(?=<svg)|(?<=<\/svg>).*$/g, '')
+	return JSON.parse(content || '{}').content?.replace(/^(\n|.)*(?=<svg)|(?<=<\/svg>)(\n|.)*$/g, '')
 }
