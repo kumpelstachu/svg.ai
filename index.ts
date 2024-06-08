@@ -52,7 +52,8 @@ async function handleGenerate(name: Query, key: Query) {
 
 		const content = await generateSVG(name)
 
-		if (!content?.startsWith('<svg')) return json({ error: 'Invalid SVG content' }, { status: 400 })
+		if (!content?.startsWith('<svg'))
+			return json({ error: 'Invalid SVG content', content }, { status: 400 })
 
 		await Bun.write(file, content)
 	}
@@ -96,5 +97,5 @@ async function generateSVG(filename: string, fast = false): Promise<string | und
 	})
 
 	const content = response.choices[0].message.tool_calls?.[0].function.arguments
-	return JSON.parse(content || '{}').content
+	return JSON.parse(content || '{}').content?.trim()
 }
