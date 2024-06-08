@@ -32,10 +32,12 @@ export default AutoRouter({ port })
 		})
 	})
 	.get('/api/generate', ({ query }) => handleGenerate(query.name, query.key))
-	.get('/api/:name.svg', ({ params, query }) => handleGenerate(params.name, query.key))
+	.get('/api/:name.svg', ({ params, query }) =>
+		handleGenerate(params.name, query.key, query.fast === 'true')
+	)
 
 type Query = string | string[] | undefined
-async function handleGenerate(name: Query, key: Query) {
+async function handleGenerate(name: Query, key: Query, fast = false) {
 	if (typeof name !== 'string') return json({ error: 'Filename not provided' }, { status: 400 })
 
 	name = decodeURIComponent(name).replace(/[^a-zA-Z0-9_-]/g, '_')
@@ -50,7 +52,7 @@ async function handleGenerate(name: Query, key: Query) {
 		if (Bun.env.SECRET_KEY && (typeof key !== 'string' || key !== Bun.env.SECRET_KEY))
 			return json({ error: 'Invalid key' }, { status: 401 })
 
-		const content = await generateSVG(name)
+		const content = await generateSVG(name, fast)
 
 		if (!content?.startsWith('<svg'))
 			return json({ error: 'Invalid SVG content', content }, { status: 400 })
