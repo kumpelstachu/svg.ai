@@ -70,7 +70,7 @@ async function handleGenerate(name: Query, key: Query, fast = false) {
 
 async function generateSVG(filename: string, fast = false): Promise<string | undefined> {
 	const response = await ai.chat.completions.create({
-		model: fast ? 'gpt-3.5-turbo' : 'gpt-4o',
+		model: fast ? 'gpt-4o-mini' : 'gpt-4o',
 		messages: [
 			{
 				role: 'system',

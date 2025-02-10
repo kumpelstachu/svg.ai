@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "itty-router": "^5.0.17",
-    "openai": "^4.49.1"
+    "openai": "^4.83.0"
   },
   "devDependencies": {
     "bun-types": "latest"
